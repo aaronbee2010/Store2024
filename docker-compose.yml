@@ -12,7 +12,7 @@ services:
     ports:
       - "5146:5146"
     networks:
-      store2018network:
+      store2024network:
         ipv4_address: 172.19.10.100
 
   accountservice:
@@ -23,7 +23,7 @@ services:
     ports:
       - "5173:5173"
     networks:
-      store2018network:
+      store2024network:
         ipv4_address: 172.19.10.101
 
   inventoryservice:
@@ -34,7 +34,7 @@ services:
     ports:
       - "5180:5180"
     networks:
-      store2018network:
+      store2024network:
         ipv4_address: 172.19.10.102
 
   shoppingservice:
@@ -45,7 +45,7 @@ services:
     ports:
       - "5219:5219"
     networks:
-      store2018network:
+      store2024network:
         ipv4_address: 172.19.10.103
 
 networks:
