@@ -1,24 +1,57 @@
 services:
   store2024:
-    image: ${DOCKER_REGISTRY-}store2024
+    image: aaronbee2010/store2024:latest
+    environment:
+        ACCOUNT_SERVICE_API_BASE: http://localhost:5173
+        INVENTORY_SERVICE_API_BASE: http://localhost:5180
+        SHOPPING_SERVICE_API_BASE: http://localhost:5219
+        
     build:
       context: .
       dockerfile: Store2024/Dockerfile
+    ports:
+      - "5146:5146"
+    networks:
+      store2018network:
+        ipv4_address: 172.19.10.100
 
   accountservice:
-    image: ${DOCKER_REGISTRY-}accountservice
+    image: aaronbee2010/accountservice:latest
     build:
       context: .
       dockerfile: Services/AccountService/Dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      store2018network:
+        ipv4_address: 172.19.10.101
 
   inventoryservice:
-    image: ${DOCKER_REGISTRY-}inventoryservice
+    image: aaronbee2010/inventoryservice:latest
     build:
       context: .
       dockerfile: Services/InventoryService/Dockerfile
+    ports:
+      - "5180:5180"
+    networks:
+      store2018network:
+        ipv4_address: 172.19.10.102
 
   shoppingservice:
-    image: ${DOCKER_REGISTRY-}shoppingservice
+    image: aaronbee2010/shoppingservice:latest
     build:
       context: .
       dockerfile: Services/ShoppingService/Dockerfile
+    ports:
+      - "5219:5219"
+    networks:
+      store2018network:
+        ipv4_address: 172.19.10.103
+
+networks:
+  store2024network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.19.0.0/16
