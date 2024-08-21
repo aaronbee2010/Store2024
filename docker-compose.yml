@@ -2,13 +2,13 @@ services:
   store2024:
     image: aaronbee2010/store2024:latest
     environment:
-        ACCOUNT_SERVICE_API_BASE: http://localhost:5173
-        INVENTORY_SERVICE_API_BASE: http://localhost:5180
-        SHOPPING_SERVICE_API_BASE: http://localhost:5219
+        ACCOUNT_SERVICE_API_BASE: http://172.19.10.101:5173
+        INVENTORY_SERVICE_API_BASE: http://172.19.10.102:5180
+        SHOPPING_SERVICE_API_BASE: http://172.19.10.103:5219
         
     build:
-      context: .
-      dockerfile: Store2024/Dockerfile
+      context: ./Store2024
+      dockerfile: Dockerfile
     ports:
       - "5146:5146"
     networks:
@@ -18,8 +18,8 @@ services:
   accountservice:
     image: aaronbee2010/accountservice:latest
     build:
-      context: .
-      dockerfile: Services/AccountService/Dockerfile
+      context: ./Services/AccountService
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
     networks:
@@ -29,8 +29,8 @@ services:
   inventoryservice:
     image: aaronbee2010/inventoryservice:latest
     build:
-      context: .
-      dockerfile: Services/InventoryService/Dockerfile
+      context: ./Services/InventoryService
+      dockerfile: Dockerfile
     ports:
       - "5180:5180"
     networks:
@@ -40,8 +40,8 @@ services:
   shoppingservice:
     image: aaronbee2010/shoppingservice:latest
     build:
-      context: .
-      dockerfile: Services/ShoppingService/Dockerfile
+      context: ./Services/ShoppingService/
+      dockerfile: Dockerfile
     ports:
       - "5219:5219"
     networks:

@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-ENV ASPNETCORE_URLS http://+5173
+ENV ASPNETCORE_URLS="http://+:5173"
 EXPOSE 5173
 
 # This stage is used to build the service project
