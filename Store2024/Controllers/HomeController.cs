@@ -11,6 +11,7 @@ namespace Store2024.Controllers
         private static string ACCOUNT_SERVICE_API_BASE = Environment.GetEnvironmentVariable("ACCOUNT_SERVICE_API_BASE");
         private static string INVENTORY_SERVICE_API_BASE = Environment.GetEnvironmentVariable("INVENTORY_SERVICE_API_BASE");
         private static string SHOPPING_SERVICE_API_BASE = Environment.GetEnvironmentVariable("SHOPPING_SERVICE_API_BASE");
+        private static JsonSerializerOptions JSON_DESERIALISE_OPTIONS;
         private HttpClient http;
         
         private readonly ILogger<HomeController> _logger;
@@ -20,6 +21,10 @@ namespace Store2024.Controllers
             ACCOUNT_SERVICE_API_BASE = ACCOUNT_SERVICE_API_BASE ?? "http://localhost:5173";
             INVENTORY_SERVICE_API_BASE = INVENTORY_SERVICE_API_BASE ?? "http://localhost:5180";
             SHOPPING_SERVICE_API_BASE = SHOPPING_SERVICE_API_BASE ?? "http://localhost:5219";
+            JSON_DESERIALISE_OPTIONS = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            };
 
             _logger = logger;
             http = new HttpClient();
@@ -33,7 +38,7 @@ namespace Store2024.Controllers
             if (userResponse.IsSuccessStatusCode)
             {
                 var userData = userResponse.Content.ReadAsStringAsync().Result;
-                user = JsonSerializer.Deserialize<Consumer>(userData);
+                user = JsonSerializer.Deserialize<Consumer>(userData, JSON_DESERIALISE_OPTIONS);
             }
 
             // Fetch products data from InventoryService API and instantiate model with said data
@@ -42,7 +47,7 @@ namespace Store2024.Controllers
             if (productResponse.IsSuccessStatusCode)
             {
                 var productData = productResponse.Content.ReadAsStringAsync().Result;
-                product = JsonSerializer.Deserialize<List<Product>>(productData);
+                product = JsonSerializer.Deserialize<List<Product>>(productData, JSON_DESERIALISE_OPTIONS);
             }
 
             // Fetch cart data from ShoppingService API and instantiate model with said data
@@ -51,7 +56,7 @@ namespace Store2024.Controllers
             if (cartResponse.IsSuccessStatusCode)
             {
                 var cartData = cartResponse.Content.ReadAsStringAsync().Result;
-                cart = JsonSerializer.Deserialize<Cart>(cartData);
+                cart = JsonSerializer.Deserialize<Cart>(cartData, JSON_DESERIALISE_OPTIONS);
             }
 
             // Create commerce instance with the models generated from the API calls and generate a view with this instance
