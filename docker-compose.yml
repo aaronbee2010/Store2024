@@ -1,0 +1,24 @@
+services:
+  store2024:
+    image: ${DOCKER_REGISTRY-}store2024
+    build:
+      context: .
+      dockerfile: Store2024/Dockerfile
+
+  accountservice:
+    image: ${DOCKER_REGISTRY-}accountservice
+    build:
+      context: .
+      dockerfile: Services/AccountService/Dockerfile
+
+  inventoryservice:
+    image: ${DOCKER_REGISTRY-}inventoryservice
+    build:
+      context: .
+      dockerfile: Services/InventoryService/Dockerfile
+
+  shoppingservice:
+    image: ${DOCKER_REGISTRY-}shoppingservice
+    build:
+      context: .
+      dockerfile: Services/ShoppingService/Dockerfile
