@@ -10,11 +10,10 @@ EXPOSE 5219
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["Services/ShoppingService/ShoppingService.csproj", "Services/ShoppingService/"]
-RUN dotnet restore "./Services/ShoppingService/ShoppingService.csproj"
+WORKDIR /src/ShoppingService
+COPY ./ShoppingService.csproj .
+RUN dotnet restore "./ShoppingService.csproj"
 COPY . .
-WORKDIR "/src/Services/ShoppingService"
 RUN dotnet build "./ShoppingService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage

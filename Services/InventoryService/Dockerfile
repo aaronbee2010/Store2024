@@ -10,11 +10,10 @@ EXPOSE 5180
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["Services/InventoryService/InventoryService.csproj", "Services/InventoryService/"]
-RUN dotnet restore "./Services/InventoryService/InventoryService.csproj"
+WORKDIR /src/InventoryService
+COPY ./InventoryService.csproj .
+RUN dotnet restore "./InventoryService.csproj"
 COPY . .
-WORKDIR "/src/Services/InventoryService"
 RUN dotnet build "./InventoryService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage

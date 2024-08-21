@@ -10,11 +10,10 @@ EXPOSE 5173
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["Services/AccountService/AccountService.csproj", "Services/AccountService/"]
-RUN dotnet restore "./Services/AccountService/AccountService.csproj"
+WORKDIR /src/AccountService
+COPY ./AccountService.csproj .
+RUN dotnet restore "./AccountService.csproj"
 COPY . .
-WORKDIR "/src/Services/AccountService"
 RUN dotnet build "./AccountService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
