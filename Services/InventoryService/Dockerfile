@@ -25,4 +25,6 @@ RUN dotnet publish "./InventoryService.csproj" -c $BUILD_CONFIGURATION -o /app/p
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENTRYPOINT ["dotnet", "InventoryService.dll"]

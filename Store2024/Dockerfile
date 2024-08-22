@@ -25,4 +25,6 @@ RUN dotnet publish "./Store2024.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENTRYPOINT ["dotnet", "Store2024.dll"]

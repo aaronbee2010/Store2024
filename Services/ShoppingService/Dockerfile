@@ -25,4 +25,6 @@ RUN dotnet publish "./ShoppingService.csproj" -c $BUILD_CONFIGURATION -o /app/pu
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENTRYPOINT ["dotnet", "ShoppingService.dll"]
