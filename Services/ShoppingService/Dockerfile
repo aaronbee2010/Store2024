@@ -2,7 +2,7 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM aaronbee2010/microservicebase:latest AS base
-USER app
+COPY nginx.conf /etc/nginx/sites-available/default
 WORKDIR /app
 ENV ASPNETCORE_URLS="http://+:5219"
 EXPOSE 5219
