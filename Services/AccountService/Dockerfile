@@ -4,8 +4,8 @@
 FROM aaronbee2010/microservicebase:latest AS base
 COPY nginx.conf /etc/nginx/sites-available/default
 WORKDIR /app
-ENV ASPNETCORE_URLS="http://+:5173"
-EXPOSE 5173
+ENV ASPNETCORE_URLS="http://+:8000"
+EXPOSE 8000
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -27,4 +27,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ENTRYPOINT ["dotnet", "AccountService.dll"]
+ENTRYPOINT ["supervisord"]
