@@ -2,15 +2,15 @@ services:
   store2024:
     image: aaronbee2010/store2024:latest
     environment:
-        ACCOUNT_SERVICE_API_BASE: http://172.19.10.101:5173
-        INVENTORY_SERVICE_API_BASE: http://172.19.10.102:5180
-        SHOPPING_SERVICE_API_BASE: http://172.19.10.103:5219
+        ACCOUNT_SERVICE_API_BASE: http://172.19.10.101
+        INVENTORY_SERVICE_API_BASE: http://172.19.10.102
+        SHOPPING_SERVICE_API_BASE: http://172.19.10.103
         
     build:
       context: ./Store2024
       dockerfile: Dockerfile
     ports:
-      - "5146:5146"
+      - "5146:80"
     networks:
       store2024network:
         ipv4_address: 172.19.10.100
@@ -21,7 +21,7 @@ services:
       context: ./Services/AccountService
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "5173:80"
     networks:
       store2024network:
         ipv4_address: 172.19.10.101
@@ -32,7 +32,7 @@ services:
       context: ./Services/InventoryService
       dockerfile: Dockerfile
     ports:
-      - "5180:5180"
+      - "5180:80"
     networks:
       store2024network:
         ipv4_address: 172.19.10.102
@@ -43,7 +43,7 @@ services:
       context: ./Services/ShoppingService/
       dockerfile: Dockerfile
     ports:
-      - "5219:5219"
+      - "5219:80"
     networks:
       store2024network:
         ipv4_address: 172.19.10.103
