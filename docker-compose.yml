@@ -10,7 +10,8 @@ services:
       context: ./Store2024
       dockerfile: Dockerfile
     ports:
-      - "5146:80"
+      - "8080:80"
+      - "8443:443"
     networks:
       store2024network:
         ipv4_address: 172.19.10.100
@@ -21,7 +22,8 @@ services:
       context: ./Services/AccountService
       dockerfile: Dockerfile
     ports:
-      - "5173:80"
+      - "8081:80"
+      - "8444:443"
     networks:
       store2024network:
         ipv4_address: 172.19.10.101
@@ -32,7 +34,8 @@ services:
       context: ./Services/InventoryService
       dockerfile: Dockerfile
     ports:
-      - "5180:80"
+      - "8082:80"
+      - "8445:443"
     networks:
       store2024network:
         ipv4_address: 172.19.10.102
@@ -43,7 +46,8 @@ services:
       context: ./Services/ShoppingService/
       dockerfile: Dockerfile
     ports:
-      - "5219:80"
+      - "8083:80"
+      - "8446:443"
     networks:
       store2024network:
         ipv4_address: 172.19.10.103
